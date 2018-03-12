@@ -1,0 +1,32 @@
+/* 
+  Indego Brand Colors:
+  Dark Blue: #16216a
+  Light Blue: #1486c8
+  Neon Green: #94d60a
+  White: #ffffff
+*/
+
+.App {
+  text-align: center;
+}
+
+.Indego-logo {
+  height: 80px;
+  padding: 1.1em;
+}
+
+.App-header {
+  background-color: #16216a;
+  height: 115px;
+  padding: 0 0 15px;
+  border-bottom: 5px solid #94d60a;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.App-body {
+  margin: 0 auto;
+  width: 1170px;
+}
