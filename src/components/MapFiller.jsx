@@ -9,7 +9,7 @@ class mapFiller extends Component {
                 <img className="Map" src="http://via.placeholder.com/1170x600" alt="Map Placeholder"/>
 
                 <div className="JSON-info">
-                    <p>{json.features[0]}</p>
+                    <p>{json.features[0].properties.addressStreet}</p>
                 </div>
             </div>
         );
