@@ -17,6 +17,9 @@ class App extends Component {
           <ExploreLink />
           <MapFiller />
         </div>
+        <footer className="App-footer">
+          <p>&copy; Daniel Remel 2018</p>
+        </footer>
       </div>
     );
   }
