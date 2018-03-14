@@ -28,10 +28,6 @@
   text-align: center;
 }
 
-.App-intro {
-  font-size: large;
-}
-
 .App-body {
   margin: 0 auto;
   width: 95%;
@@ -39,6 +35,16 @@
 
 .Explore a {
   text-decoration: none;
+}
+
+.JSON-info {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.JSON-info ul {
+  border-bottom: 1px solid #0082cb;
 }
 
 .Map {

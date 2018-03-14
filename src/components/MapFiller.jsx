@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 
-var json = require('../data/indego.json');
+const json = require('../data/indego.json');
 
-class mapFiller extends Component {
+class MapFiller extends Component {
     render() {
+        const listedInfo = json.features.map((entry) =>
+            <ul>
+                <li key={entry}>
+                    <p>{entry.properties.addressStreet}</p>
+                    <p>{entry.properties.addressCity}, {entry.properties.addressState}</p>
+                </li>
+            </ul>
+        );
+    
+        // var geometry = json.features[i].geometry;
+        // var address = json.features[i].properties;
+
         return (
             <div>
                 <img className="Map" src="http://via.placeholder.com/1170x600" alt="Map Placeholder"/>
 
+                <h3>Station Addresses</h3>
                 <div className="JSON-info">
-                    <p>{json.features[0].properties.addressStreet}</p>
+                    {listedInfo}
                 </div>
             </div>
         );
     }
 }
 
-export default mapFiller;
+export default MapFiller;
