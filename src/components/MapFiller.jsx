@@ -12,9 +12,6 @@ class MapFiller extends Component {
                 </li>
             </ul>
         );
-    
-        // var geometry = json.features[i].geometry;
-        // var address = json.features[i].properties;
 
         return (
             <div>
