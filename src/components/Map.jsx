@@ -121,11 +121,26 @@ export class Map extends Component {
             map.panTo(center);
         }
     }
+
+    renderChildren() {
+        const {children} = this.props;
+
+        if (!children) return;
+
+        return React.Children.map(children, c => {
+            return React.cloneElement(c, {
+                map: this.map,
+                google: this.props.google,
+                mapCenter: this.state.currentLocation
+            });
+        })
+    }
     
     render() {
         return (
             <div ref='map' className="mapStyles">
                 Loading map...
+                {this.renderChildren()}
             </div>
         );
     }

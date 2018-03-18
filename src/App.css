@@ -41,6 +41,21 @@
   padding: 1.1em;
 }
 
+.map-legend {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.map-legend img {
+  height: 50px;
+  width: auto;
+}
+
+.map-legend span {
+  padding: 0 5px;
+}
+
 .mapStyles {
   width: 90vw;
   height: 70vh;
