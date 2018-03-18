@@ -6,7 +6,7 @@ var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 export class MapContainer extends Component {
     render() {
         return (
-            <div>
+            <div className="containerStyles">
                 <Map google={this.props.google} />
             </div>
         );

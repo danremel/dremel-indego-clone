@@ -9,16 +9,16 @@ import Map from './components/Map';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="Indego-logo" alt="logo" />
+      <div className="app">
+        <header className="app-header">
+          <img src={logo} className="indego-logo" alt="logo" />
         </header>
-        <div className="App-body">
+        <div className="app-body">
           <MapTitle />
           <ExploreLink />
           <MapContainer />
         </div>
-        <footer className="App-footer">
+        <footer className="app-footer">
           <p>&copy; Daniel Remel 2018</p>
         </footer>
       </div>

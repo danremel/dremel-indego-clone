@@ -62,7 +62,9 @@ class MapFiller extends Component {
         });
         return (
             <div>
-                <img className="Map" src="http://via.placeholder.com/1170x600" alt="Map Placeholder"/>
+                {/* Don't need this placeholder anymore! 
+                <img className="map" src="http://via.placeholder.com/1170x600" alt="Map Placeholder"/> 
+                */}
             </div>
         );
     }

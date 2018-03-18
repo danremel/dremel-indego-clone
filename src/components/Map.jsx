@@ -49,6 +49,23 @@ export class Map extends Component {
         }
     }
 
+    handleEvent(evtName) {
+        let timeout;
+        const handlerName = `on${camelize(evtName)}`;
+
+        return (e) => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            timeout = setTimeout(() => {
+                if (this.props[handlerName]) {
+                    this.props[handlerName](this.props, this.map, e);
+                }
+            }, 0);
+        }
+    }
+
     loadMap() {
         if (this.props && this.props.google) {
             // google is available
@@ -73,11 +90,11 @@ export class Map extends Component {
                 Map.propTypes[camelize(e)] = T.func;
             });
 
-            
-
             this.map.addListener('onDragend', (evt) => {
                 this.props.onMove(this.map);
             });
+
+            maps.event.trigger(this.map, 'onReady');
 
             let centerChangedTimeout;
             this.map.addListener('onDragend', (evt) => {
@@ -89,23 +106,6 @@ export class Map extends Component {
                     this.props.onMove(this.map);
                 }, 0);
             })
-        }
-    }
-
-    handleEvent(evtName) {
-        let timeout;
-        const handlerName = `on${camelize(evtName)}`;
-
-        return (e) => {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
-            }
-            timeout = setTimeout(() => {
-                if (this.props[handlerName]) {
-                    this.props[handlerName](this.props, this.map, e);
-                }
-            }, 0);
         }
     }
 
@@ -123,12 +123,8 @@ export class Map extends Component {
     }
     
     render() {
-        const divStyle = {
-            width: '100vw',
-            height: '100vh'
-        }
         return (
-            <div ref='map' style={divStyle}>
+            <div ref='map' className="mapStyles">
                 Loading map...
             </div>
         );

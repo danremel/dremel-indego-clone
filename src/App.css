@@ -6,12 +6,7 @@
   White: #ffffff
 */
 
-.Indego-logo {
-  height: 80px;
-  padding: 1.1em;
-}
-
-.App-footer {
+.app-footer {
   background-color: #aaaaaa;
   color: #ffffff;
   display: flex;
@@ -20,7 +15,7 @@
   height: 45px;
 }
 
-.App-header {
+.app-header {
   background-color: #16216a;
   height: 115px;
   padding: 0 0 15px;
@@ -28,30 +23,30 @@
   text-align: center;
 }
 
-.App-body {
+.app-body {
   margin: 0 auto;
   width: 95%;
 }
 
-.Explore a {
+.containerStyles {
+  padding: 1em;
+}
+
+.explore a {
   text-decoration: none;
 }
 
-.JSON-info {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+.indego-logo {
+  height: 80px;
+  padding: 1.1em;
 }
 
-.JSON-info ul {
-  border-bottom: 1px solid #0082cb;
+.mapStyles {
+  width: 90vw;
+  height: 70vh;
 }
 
-.Map {
-  width: 100%;
-}
-
-.Page-title {
+.page-title {
   text-align: left;
   font-size: 48px;
   padding: 0 0 9px;
