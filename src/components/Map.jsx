@@ -29,7 +29,7 @@ export class Map extends Component {
             const node = ReactDOM.findDOMNode(mapRef);
 
             let { initialCenter, zoom } = this.props;
-            const { lat, lng } = initialCenter;
+            const { lat, lng } = this.state.currentLocation;
             const center = new maps.LatLng(lat, lng);
             const mapConfig = Object.assign({}, {
                 center: center,
@@ -56,8 +56,8 @@ Map.defaultProps = {
     zoom: 13, 
     // Philadelphia
     initialCenter: {
-        lat: 39.963658,
-        lng: -75.16618
+        lat: 39.9525839,
+        lng: -75.16522150000003
     }
 }
 
