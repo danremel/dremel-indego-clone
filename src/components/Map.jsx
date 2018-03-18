@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom/server';
+import React, { Component, PropTypes as T } from 'react';
+import ReactDOM from 'react-dom';
 
-const evtNames = ['onClick', 'onDragend'];
+const evtNames = ['onReady', 'onClick', 'onDragend'];
 
 // Automatically convert strings to camelCase
 const camelize = function(str) {
@@ -17,7 +17,7 @@ export class Map extends Component {
         const { lat, lng } = this.props.initialCenter;
         this.state = {
             currentLocation: {
-                ddlat: lat,
+                lat: lat,
                 lng: lng
             }
         }
@@ -65,11 +65,15 @@ export class Map extends Component {
                 center: center,
                 zoom: zoom
             })
+
             this.map = new maps.Map(node, mapConfig);
 
             evtNames.forEach(e => {
                 this.map.addListener(e, this.handleEvent(e));
+                Map.propTypes[camelize(e)] = T.func;
             });
+
+            
 
             this.map.addListener('onDragend', (evt) => {
                 this.props.onMove(this.map);
@@ -126,6 +130,7 @@ export class Map extends Component {
         );
     }
 }
+
 Map.propTypes = {
     google: React.PropTypes.object,
     zoom: React.PropTypes.number,
