@@ -13,9 +13,29 @@ export class Map extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.centerAroundCurrentLocation) {
+            if (navigator && navigator.geoLocation) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const coords = pos.coords;
+                    this.setState({
+                        currentLocation: {
+                            lat: coords.latitude,
+                            lng: coords.longitude
+                        }
+                    })
+                })
+            }
+        }
+        this.loadMap();
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.google !== this.props.google) {
             this.loadMap();
+        }
+        if (prevState.currentLocation !== this.state.currentLocation) {
+            this.recenterMap();
         }
     }
 
@@ -58,7 +78,8 @@ Map.defaultProps = {
     initialCenter: {
         lat: 39.9525839,
         lng: -75.16522150000003
-    }
+    },
+    centerAroundCurrentLocation: false
 }
 
 export default Map;
