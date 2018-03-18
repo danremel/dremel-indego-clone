@@ -60,6 +60,16 @@ export class Map extends Component {
             this.map.addListener('dragend', (evt) => {
                 this.props.onMove(this.map);
             })
+            let centerChangedTimeout;
+            this.map.addListener('dragend', (evt) => {
+                if (centerChangedTimeout) {
+                    clearTimeout(centerChangedTimeout);
+                    centerChangedTimeout = null;
+                }
+                centerChangedTimeout = setTimeout(() => {
+                    this.props.onMove(this.map);
+                }, 0);
+            })
         }
     }
 
