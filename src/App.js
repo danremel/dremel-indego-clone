@@ -4,6 +4,7 @@ import './App.css';
 import ExploreLink from './components/ExploreLink';
 import MapContainer from './components/MapContainer';
 import MapTitle from './components/MapTitle';
+import Map from './components/Map';
 
 class App extends Component {
   render() {

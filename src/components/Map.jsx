@@ -44,10 +44,10 @@ export class Map extends Component {
             // google is available
             const {google} = this.props;
             const maps = google.maps;
-
+            
             const mapRef = this.refs.map;
             const node = ReactDOM.findDOMNode(mapRef);
-
+            
             let { initialCenter, zoom } = this.props;
             const { lat, lng } = this.state.currentLocation;
             const center = new maps.LatLng(lat, lng);
@@ -56,9 +56,26 @@ export class Map extends Component {
                 zoom: zoom
             })
             this.map = new maps.Map(node, mapConfig);
+
+            this.map.addListener('dragend', (evt) => {
+                this.props.onMove(this.map);
+            })
         }
     }
 
+    recenterMap() {
+        const map = this.map;
+        const curr = this.state.currentLocation;
+
+        const google = this.props.google;
+        const maps = google.maps;
+
+        if (map) {
+            let center = new maps.LatLng(curr.lat, curr.lng)
+            map.panTo(center);
+        }
+    }
+    
     render() {
         return (
             <div ref='map'>
@@ -70,7 +87,8 @@ export class Map extends Component {
 Map.propTypes = {
     google: React.PropTypes.object,
     zoom: React.PropTypes.number,
-    initialCenter: React.PropTypes.object
+    initialCenter: React.PropTypes.object,
+    onMove: React.PropTypes.func
 }
 Map.defaultProps = {
     zoom: 13, 
@@ -79,7 +97,8 @@ Map.defaultProps = {
         lat: 39.9525839,
         lng: -75.16522150000003
     },
-    centerAroundCurrentLocation: false
+    centerAroundCurrentLocation: false,
+    onMove: function() {}
 }
 
 export default Map;
