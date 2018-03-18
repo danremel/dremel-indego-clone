@@ -5,12 +5,8 @@ import Map from './Map';
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 export class MapContainer extends Component {
     render() {
-        const divStyle = {
-            width: '80vw',
-            height: '50vh'
-        }
         return (
-            <div style={divStyle}>
+            <div>
                 <Map google={this.props.google} />
             </div>
         );

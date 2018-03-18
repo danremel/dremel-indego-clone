@@ -123,8 +123,12 @@ export class Map extends Component {
     }
     
     render() {
+        const divStyle = {
+            width: '100vw',
+            height: '100vh'
+        }
         return (
-            <div ref='map'>
+            <div ref='map' style={divStyle}>
                 Loading map...
             </div>
         );
