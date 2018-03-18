@@ -1,4 +1,14 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom/server';
+
+const evtNames = ['onClick', 'onDragend'];
+
+// Automatically convert strings to camelCase
+const camelize = function(str) {
+    return str.split(' ').map(function(word){
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join('');
+  }
 
 export class Map extends Component {
     constructor(props) {
@@ -7,7 +17,7 @@ export class Map extends Component {
         const { lat, lng } = this.props.initialCenter;
         this.state = {
             currentLocation: {
-                lat: lat,
+                ddlat: lat,
                 lng: lng
             }
         }
@@ -57,11 +67,16 @@ export class Map extends Component {
             })
             this.map = new maps.Map(node, mapConfig);
 
-            this.map.addListener('dragend', (evt) => {
+            evtNames.forEach(e => {
+                this.map.addListener(e, this.handleEvent(e));
+            });
+
+            this.map.addListener('onDragend', (evt) => {
                 this.props.onMove(this.map);
-            })
+            });
+
             let centerChangedTimeout;
-            this.map.addListener('dragend', (evt) => {
+            this.map.addListener('onDragend', (evt) => {
                 if (centerChangedTimeout) {
                     clearTimeout(centerChangedTimeout);
                     centerChangedTimeout = null;
@@ -70,6 +85,23 @@ export class Map extends Component {
                     this.props.onMove(this.map);
                 }, 0);
             })
+        }
+    }
+
+    handleEvent(evtName) {
+        let timeout;
+        const handlerName = `on${camelize(evtName)}`;
+
+        return (e) => {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            timeout = setTimeout(() => {
+                if (this.props[handlerName]) {
+                    this.props[handlerName](this.props, this.map, e);
+                }
+            }, 0);
         }
     }
 
