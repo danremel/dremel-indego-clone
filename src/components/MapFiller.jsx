@@ -52,7 +52,7 @@ class MapFiller extends Component {
         axios.get('https://www.rideindego.com/stations/json/')
         .then(function (response) {
             response.data.features.forEach(function (entry) {
-                var info = entry.properties;
+                // var info = entry.properties;
                 // console.log(info);
             });
             console.log(response.data.features);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './Indego_Logo.png';
 import './App.css';
 import ExploreLink from './components/ExploreLink';
-import MapFiller from './components/MapFiller';
+import MapContainer from './components/MapContainer';
 import MapTitle from './components/MapTitle';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
         <div className="App-body">
           <MapTitle />
           <ExploreLink />
-          <MapFiller />
+          <MapContainer />
         </div>
         <footer className="App-footer">
           <p>&copy; Daniel Remel 2018</p>
