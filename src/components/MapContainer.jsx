@@ -46,7 +46,6 @@ export class MapContainer extends Component {
 
     //     var kioskPercentFull = bikes / (bikes + docks);
     //     var roundedPercent;
-
     //     if( kioskPercentFull === 0 ) {
     //         roundedPercent = 0
     //     } else if( kioskPercentFull <= .2 ) {
@@ -70,13 +69,14 @@ export class MapContainer extends Component {
     //     } else if( kioskPercentFull === 1 ) {
     //         roundedPercent = 100
     //     }
-
+    //     var {google, maps} = this.props;
+    //     var markerIcon = new google.maps.marker.icon;
     //     if(roundedPercent === 0) {
-    //         Marker.icon = {emptyStation};
+    //         markerIcon = {emptyStation};
     //     } else if(roundedPercent === 50) {
-    //         Marker.icon = {halfStation};
+    //         markerIcon = {halfStation};
     //     } else if(roundedPercent === 100) {
-    //         Marker.icon = {fullStation};
+    //         markerIcon = {fullStation};
     //     }
     // };
     
@@ -91,7 +91,7 @@ export class MapContainer extends Component {
             position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
             bikesAvailable={entry.properties.bikesAvailable}
             docksAvailable={entry.properties.docksAvailable}
-            icon={this.determineIcon}
+            icon={fullStation}
             />
         );
         return (
