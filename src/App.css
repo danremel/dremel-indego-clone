@@ -49,14 +49,14 @@
 }
 
 .info-window {
-text-align: center;
+  text-align: center;
 }
 
 .info-window h2 {
   color: #0082cb;
 }
 
-.info-window h2, p {
+.info-window p {
   text-align: left;
 }
 
