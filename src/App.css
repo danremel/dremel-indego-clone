@@ -29,9 +29,10 @@
   width: 95%;
 }
 
-.bikes-docks {
-  display: flex;
-  justify-content: space-between;
+.bikes, .docks {
+  display: inline-block;
+  padding: 10px;
+  text-align: center;
 }
 
 .containerStyles {

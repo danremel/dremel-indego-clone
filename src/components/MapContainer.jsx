@@ -39,21 +39,46 @@ export class MapContainer extends Component {
         };
     };
 
-    // determineIcon = function(props) {
-    //     const json = indegoJson.features.properties;
-    //     const bikes = json.bikesAvailable;
-    //     const docks = json.docksAvailable;
-    //     quotient = function(bikes, docks){ 
-    //         bikes/docks; 
-    //     };
-    //     if( > .51) {
-    //         icon: fullStation
-    //     } else if(quotient = .50) {
-    //         icon: halfStation
-    //     } else if (quotient < .49) {
-    //         icon: emptyStation
-    //     }
-    // }
+    determineIcon = function(props) {
+        const json = indegoJson.features.properties;
+        const bikes = json.bikesAvailable;
+        const docks = json.docksAvailable;
+
+        var kioskPercentFull = bikes / (bikes + docks);
+        var roundedPercent;
+
+        if( kioskPercentFull === 0 ) {
+            roundedPercent = 0
+        } else if( kioskPercentFull <= .2 ) {
+            if( bikes > 2 ) {
+                roundedPercent = 40
+            } else {
+                roundedPercent = 20
+            }
+        } else if( kioskPercentFull <= .40 ) {
+            roundedPercent = 40
+        } else if( kioskPercentFull < .60 ) {
+            roundedPercent = 50
+        }  else if( kioskPercentFull < .8 ) {
+            roundedPercent = 60
+        } else if( kioskPercentFull < 1 ) {
+            if( docks > 2 ){
+                roundedPercent = 60
+            } else {
+                roundedPercent = 80
+            }
+        } else if( kioskPercentFull === 1 ) {
+            roundedPercent = 100
+        }
+
+        if(roundedPercent === 0) {
+            Marker.icon = {emptyStation};
+        } else if(roundedPercent === 50) {
+            Marker.icon = {halfStation};
+        } else if(roundedPercent === 100) {
+            Marker.icon = {fullStation};
+        }
+    };
     
     
     render() {
@@ -61,10 +86,11 @@ export class MapContainer extends Component {
         const stationMarkers = indegoJson.features.map((entry) =>
             <Marker
             onClick = {this.onMarkerClick}
-            name={entry.properties.addressStreet}
+            name={entry.properties.name}
             position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
             bikesAvailable={entry.properties.bikesAvailable}
-            icon={fullStation}
+            docksAvailable={entry.properties.docksAvailable}
+            icon={this.determineIcon}
             />
         );
         return (
@@ -75,10 +101,14 @@ export class MapContainer extends Component {
                     marker={this.state.activeMarker}
                     visible={this.state.displayingInfoWindow}>
                     <div className="info-window">
-                    <h2>{this.state.selectedPlace.name}</h2>
-                        <div className="bikes-docks">
-                            <h3>Bikes Available</h3>
-                            <h3>Docks Available</h3>
+                        <h2>{this.state.selectedPlace.name}</h2>
+                        <div className="bikes">
+                            <h3>{this.state.selectedPlace.bikesAvailable}</h3>
+                            Bikes Available
+                        </div>
+                        <div className="docks">
+                            <h3>{this.state.selectedPlace.docksAvailable}</h3>
+                            Docks Available
                         </div>
                     </div>
                 </InfoWindow>
