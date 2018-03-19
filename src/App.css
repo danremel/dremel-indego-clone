@@ -31,7 +31,7 @@
 
 .bikes, .docks {
   display: inline-block;
-  padding: 10px;
+  padding: 0 10px;
   text-align: center;
 }
 
@@ -48,8 +48,16 @@
   padding: 1.1em;
 }
 
+.info-window {
+text-align: center;
+}
+
 .info-window h2 {
   color: #0082cb;
+}
+
+.info-window h2, p {
+  text-align: left;
 }
 
 .map-container {
