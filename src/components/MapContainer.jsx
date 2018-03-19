@@ -96,7 +96,7 @@ export class MapContainer extends Component {
         );
         return (
             
-            <Map google={this.props.google} onClick={this.onMapClicked}>
+            <Map google={this.props.google} onClick={this.onMapClicked} initialCenter={{lat: 39.9526, lng: -75.1652}}>
                     {stationMarkers}
                 <InfoWindow 
                     marker={this.state.activeMarker}
