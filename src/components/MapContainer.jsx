@@ -12,6 +12,20 @@ import station0 from '../images/marker-0@2x.png';
 
 const indegoJson = require('../data/indego.json');
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
+// var mapSettings = {};
+// mapSettings['imagePath'] = './images/';
+
+// mapSettings.markers = {
+// 	available: {
+// 		0: mapSettings.imagePath + 'marker-0@2x.png',
+// 		20: mapSettings.imagePath + 'marker-20@2x.png',
+// 		40: mapSettings.imagePath + 'marker-40@2x.png',
+// 		50: mapSettings.imagePath + 'marker-50@2x.png',
+// 		60: mapSettings.imagePath + 'marker-60@2x.png',
+// 		80: mapSettings.imagePath + 'marker-80@2x.png',
+// 		100: mapSettings.imagePath + 'marker-100@2x.png',
+//     }
+// }
 
 export class MapContainer extends Component {
     constructor(props) {
@@ -21,11 +35,11 @@ export class MapContainer extends Component {
             activeMarker: {},
             selectedPlace: {},
         }
-
+        
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
     }
-
+    
     onMarkerClick = function(props, marker, e) {
         this.setState({
             selectedPlace: props,
@@ -33,7 +47,7 @@ export class MapContainer extends Component {
             displayingInfoWindow: true
         });
     }
-
+    
     onMapClicked = function(props) {
         if (this.state.displayingInfoWindow) {
             this.setState({
@@ -42,60 +56,64 @@ export class MapContainer extends Component {
             });
         };
     };
-
+    
     // determineIcon = function(props) {
     //     const json = indegoJson.features.properties;
     //     const bikes = json.bikesAvailable;
     //     const docks = json.docksAvailable;
-
+        
     //     var kioskPercentFull = bikes / (bikes + docks);
     //     var roundedPercent;
     //     if( kioskPercentFull === 0 ) {
-    //         roundedPercent = 0
+    //         roundedPercent = 0;
     //     } else if( kioskPercentFull <= .2 ) {
     //         if( bikes > 2 ) {
-    //             roundedPercent = 40
+    //             roundedPercent = 40;
     //         } else {
-    //             roundedPercent = 20
+    //             roundedPercent = 20;
     //         }
     //     } else if( kioskPercentFull <= .40 ) {
-    //         roundedPercent = 40
+    //         roundedPercent = 40;
     //     } else if( kioskPercentFull < .60 ) {
-    //         roundedPercent = 50
+    //         roundedPercent = 50;
     //     }  else if( kioskPercentFull < .8 ) {
-    //         roundedPercent = 60
+    //         roundedPercent = 60;
     //     } else if( kioskPercentFull < 1 ) {
     //         if( docks > 2 ){
-    //             roundedPercent = 60
+    //             roundedPercent = 60;
     //         } else {
-    //             roundedPercent = 80
+    //             roundedPercent = 80;
     //         }
     //     } else if( kioskPercentFull === 1 ) {
-    //         roundedPercent = 100
+    //         roundedPercent = 100;
     //     }
-    //     var {google, maps} = this.props;
-    //     var markerIcon = new google.maps.marker.icon;
-    //     if(roundedPercent === 0) {
-    //         markerIcon = {station0};
-    //     } else if(roundedPercent === 50) {
-    //         markerIcon = {station50};
-    //     } else if(roundedPercent === 100) {
-    //         markerIcon = {station100};
-    //     }
+        
+    //     var icon;
+        
+    //     var markers = mapSettings.markers;
+        
+    //     icon = markers.available[roundedPercent];
+
+        
+        // if( icon != currentIcon ) {
+        //     this.marker.setIcon({
+        //         url: icon,
+        //     });
+        // };
     // };
     
     
     render() {
-        
+
         const stationMarkers = indegoJson.features.map((entry) =>
             <Marker
-            onClick = {this.onMarkerClick}
-            name={entry.properties.name}
-            addressStreet={entry.properties.addressStreet}
-            position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
-            bikesAvailable={entry.properties.bikesAvailable}
-            docksAvailable={entry.properties.docksAvailable}
-            icon={station100}
+                onClick = {this.onMarkerClick}
+                name={entry.properties.name}
+                addressStreet={entry.properties.addressStreet}
+                position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
+                bikesAvailable={entry.properties.bikesAvailable}
+                docksAvailable={entry.properties.docksAvailable}
+                icon={station100}
             />
         );
 
