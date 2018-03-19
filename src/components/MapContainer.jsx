@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {GoogleApiWrapper, InfoWindow, Map, Marker} from 'google-maps-react';
+import ReactDOM from 'react-dom';
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 
 // Station status marker icons
 import station100 from '../images/marker-100@2x.png';
@@ -27,6 +28,85 @@ var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 //     }
 // }
 
+export class SearchBar extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            place: null,
+            position: null
+        }
+    }
+
+    onSubmit = function (e) {
+        e.preventDefault();
+    }
+
+    componentDidMount() {
+        this.renderAutoComplete();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { google, map } = this.props;
+        if (map !== prevProps.map) {
+            this.renderAutoComplete();
+        }
+    }
+
+    renderAutoComplete = function () {
+        const { google, map } = this.props;
+
+        if (!google || !map) return;
+
+        const aref = this.refs.autocomplete;
+        const node = ReactDOM.findDOMNode(aref);
+        var autocomplete = new google.maps.places.Autocomplete(node);
+        autocomplete.bindTo('bounds', map);
+
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+            }
+
+            this.setState({
+                place: place,
+                position: place.geometry.location
+            })
+        })
+    }
+
+    render() {
+        const formContainer = {
+            position: 'absolute'
+        }
+        return (
+            <div style={formContainer}>
+                <div>
+                    <form onSubmit={this.onSubmit}>
+                        <input
+                            ref='autocomplete'
+                            type="text"
+                            placeholder="Enter a location" />
+                        <input
+                            type='submit'
+                            value='Go' />
+                    </form>
+                </div>
+                <div>
+                    <Marker position={this.state.position} />
+                </div>
+            </div>
+        )
+    }
+};
+
 export class MapContainer extends Component {
     constructor(props) {
         super(props);
@@ -35,20 +115,20 @@ export class MapContainer extends Component {
             activeMarker: {},
             selectedPlace: {},
         }
-        
+
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
     }
-    
-    onMarkerClick = function(props, marker, e) {
+
+    onMarkerClick = function (props, marker, e) {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             displayingInfoWindow: true
         });
     }
-    
-    onMapClicked = function(props) {
+
+    onMapClicked = function (props) {
         if (this.state.displayingInfoWindow) {
             this.setState({
                 displayingInfoWindow: false,
@@ -56,12 +136,12 @@ export class MapContainer extends Component {
             });
         };
     };
-    
+
     // determineIcon = function(props) {
     //     const json = indegoJson.features.properties;
     //     const bikes = json.bikesAvailable;
     //     const docks = json.docksAvailable;
-        
+
     //     var kioskPercentFull = bikes / (bikes + docks);
     //     var roundedPercent;
     //     if( kioskPercentFull === 0 ) {
@@ -87,42 +167,43 @@ export class MapContainer extends Component {
     //     } else if( kioskPercentFull === 1 ) {
     //         roundedPercent = 100;
     //     }
-        
+
     //     var icon;
-        
+
     //     var markers = mapSettings.markers;
-        
+
     //     icon = markers.available[roundedPercent];
 
-        
-        // if( icon != currentIcon ) {
-        //     this.marker.setIcon({
-        //         url: icon,
-        //     });
-        // };
+
+    // if( icon != currentIcon ) {
+    //     this.marker.setIcon({
+    //         url: icon,
+    //     });
     // };
-    
-    
+    // };
+
+
     render() {
 
         const stationMarkers = indegoJson.features.map((entry) =>
             <Marker
-                onClick = {this.onMarkerClick}
+                onClick={this.onMarkerClick}
                 name={entry.properties.name}
                 addressStreet={entry.properties.addressStreet}
-                position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
+                position={{ lat: entry.properties.latitude, lng: entry.properties.longitude }}
                 bikesAvailable={entry.properties.bikesAvailable}
                 docksAvailable={entry.properties.docksAvailable}
                 icon={station100}
             />
         );
 
-        
+
         return (
-            
-            <Map style={{width: '90vw', overflow: 'hidden'}} google={this.props.google} onClick={this.onMapClicked} initialCenter={{lat: 39.9526, lng: -75.1652}}>
-                    {stationMarkers}
-                <InfoWindow 
+
+            <Map style={{ width: '90vw', overflow: 'hidden' }} google={this.props.google} onClick={this.onMapClicked} initialCenter={{ lat: 39.9526, lng: -75.1652 }}>
+                <SearchBar />
+                {stationMarkers}
+                <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.displayingInfoWindow}>
                     <div className="info-window">
