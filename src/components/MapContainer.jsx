@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import {GoogleApiWrapper, InfoWindow, Map, Marker} from 'google-maps-react';
-import fullStation from '../images/marker-100@2x.png';
-import halfStation from '../images/marker-50@2x.png';
-import emptyStation from '../images/marker-0@2x.png';
-// import Map from './Map';
-// import Marker from './Marker';
+
+// Station status marker icons
+import station100 from '../images/marker-100@2x.png';
+import station80 from '../images/marker-80@2x.png';
+import station60 from '../images/marker-60@2x.png';
+import station50 from '../images/marker-50@2x.png';
+import station40 from '../images/marker-40@2x.png';
+import station20 from '../images/marker-20@2x.png';
+import station0 from '../images/marker-0@2x.png';
 
 const indegoJson = require('../data/indego.json');
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
@@ -72,11 +76,11 @@ export class MapContainer extends Component {
     //     var {google, maps} = this.props;
     //     var markerIcon = new google.maps.marker.icon;
     //     if(roundedPercent === 0) {
-    //         markerIcon = {emptyStation};
+    //         markerIcon = {station0};
     //     } else if(roundedPercent === 50) {
-    //         markerIcon = {halfStation};
+    //         markerIcon = {station50};
     //     } else if(roundedPercent === 100) {
-    //         markerIcon = {fullStation};
+    //         markerIcon = {station100};
     //     }
     // };
     
@@ -91,12 +95,14 @@ export class MapContainer extends Component {
             position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
             bikesAvailable={entry.properties.bikesAvailable}
             docksAvailable={entry.properties.docksAvailable}
-            icon={fullStation}
+            icon={station100}
             />
         );
+
+        
         return (
             
-            <Map google={this.props.google} onClick={this.onMapClicked} initialCenter={{lat: 39.9526, lng: -75.1652}}>
+            <Map style={{width: '90vw', overflow: 'hidden'}} google={this.props.google} onClick={this.onMapClicked} initialCenter={{lat: 39.9526, lng: -75.1652}}>
                     {stationMarkers}
                 <InfoWindow 
                     marker={this.state.activeMarker}

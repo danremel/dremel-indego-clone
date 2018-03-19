@@ -20,7 +20,7 @@ class App extends Component {
           <MapTitle />
           <ExploreLink />
           <div className="map-container">
-            <MapContainer />
+            <MapContainer containerStyles={{width: '50%'}} />
           </div>
           <div className="map-legend">
             <img src={fullStationImg} alt="Station Full"/><span>Station Full</span>
