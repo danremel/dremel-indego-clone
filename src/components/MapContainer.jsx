@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import GoogleApiComponent from 'google-maps-react/dist/GoogleApiComponent.js';
-import Map from './Map';
-import Marker from './Marker';
+import {GoogleApiWrapper, Map, Marker} from 'google-maps-react';
+// import Map from './Map';
+// import Marker from './Marker';
 
+const indegoJson = require('../data/indego.json');
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
+
 export class MapContainer extends Component {
     render() {
-        const pos = {lat: 39.9525839, lng: -75.16522150000003};
+        const listedInfo = indegoJson.features.map((entry) =>
+            <Marker
+                name={entry.properties.addressStreet}
+                position={{lat: entry.properties.latitude, lng: entry.properties.longitude}}
+            />
+        )
         return (
-            <div className="containerStyles">
-                <Map google={this.props.google}>
-                    {/* <Marker />
-                    <Marker position={pos} /> */}
+
+                <Map google={this.props.google} zoomControl={true}>
+                    {listedInfo}
                 </Map>
-            </div>
         );
     }
 }
 
-export default GoogleApiComponent({
+export default GoogleApiWrapper({
     apiKey: gApi
 })(MapContainer)

@@ -19,7 +19,9 @@ class App extends Component {
         <div className="app-body">
           <MapTitle />
           <ExploreLink />
-          <MapContainer />
+          <div className="map-container">
+            <MapContainer />
+          </div>
           <div className="map-legend">
             <img src={fullStationImg} alt="Station Full"/><span>Station Full</span>
             <img src={healthyStationImg} alt="Station Healthy"/><span>Station Healthy</span>

@@ -8,7 +8,7 @@ const camelize = function(str) {
     return str.split(' ').map(function(word){
       return word.charAt(0).toUpperCase() + word.slice(1);
     }).join('');
-  }
+  };
 
 export class Map extends Component {
     constructor(props) {
@@ -156,8 +156,8 @@ Map.defaultProps = {
     zoom: 13, 
     // Philadelphia
     initialCenter: {
-        lat: 39.9525839,
-        lng: -75.16522150000003
+        lat: 39.9526,
+        lng: -75.165222
     },
     centerAroundCurrentLocation: false,
     onMove: function() {}
