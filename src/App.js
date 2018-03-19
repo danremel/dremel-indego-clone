@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
-import logo from './Indego_Logo.png';
+import logo from './images/Indego_Logo.png';
+import fullStationImg from './images/marker-100@2x.png';
+import healthyStationImg from './images/marker-50@2x.png';
+import emptryStationImg from './images/marker-0@2x.png';
 import './App.css';
 import ExploreLink from './components/ExploreLink';
-import MapFiller from './components/MapFiller';
+import MapContainer from './components/MapContainer';
 import MapTitle from './components/MapTitle';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="Indego-logo" alt="logo" />
+      <div className="app">
+        <header className="app-header">
+          <img src={logo} className="indego-logo" alt="logo" />
         </header>
-        <div className="App-body">
+        <div className="app-body">
           <MapTitle />
           <ExploreLink />
-          <MapFiller />
+          <div className="map-container">
+            <MapContainer />
+          </div>
+          <div className="map-legend">
+            <img src={fullStationImg} alt="Station Full"/><span>Station Full</span>
+            <img src={healthyStationImg} alt="Station Healthy"/><span>Station Healthy</span>
+            <img src={emptryStationImg} alt="Station Empty"/><span>Station Empty</span>
+          </div>
         </div>
-        <footer className="App-footer">
+        <footer className="app-footer">
           <p>&copy; Daniel Remel 2018</p>
         </footer>
       </div>
