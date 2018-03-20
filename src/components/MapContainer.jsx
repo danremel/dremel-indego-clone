@@ -84,24 +84,31 @@ export class SearchBar extends Component {
 
     render() {
         const formContainer = {
-            position: 'absolute'
+            position: 'absolute',
+            top: '15px',
+            left: '110px'
+        }
+        const inputStyles = {
+            height: '30px',
+            fontSize: '.85em'
         }
         return (
             <div style={formContainer}>
                 <div>
                     <form onSubmit={this.onSubmit}>
                         <input
+                            style={inputStyles}
                             ref='autocomplete'
                             type="text"
                             placeholder="Enter a location" />
                         <input
+                            style={inputStyles}
                             type='submit'
-                            value='Go' />
+                            value='Go' > 
+                        </input>
                     </form>
                 </div>
-                <div>
-                    <Marker position={this.state.position} />
-                </div>
+                <Marker position={this.state.position} />
             </div>
         )
     }
