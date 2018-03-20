@@ -20,12 +20,12 @@ class App extends Component {
           <MapTitle />
           <ExploreLink />
           <div className="map-container">
-            <MapContainer containerStyles={{width: '50%'}} />
+            <MapContainer containerStyles={{ width: '50%' }} />
           </div>
           <div className="map-legend">
-            <img src={fullStationImg} alt="Station Full"/><span>Station Full</span>
-            <img src={healthyStationImg} alt="Station Healthy"/><span>Station Healthy</span>
-            <img src={emptryStationImg} alt="Station Empty"/><span>Station Empty</span>
+            <img src={fullStationImg} alt="Station Full" /><span>Station Full</span>
+            <img src={healthyStationImg} alt="Station Healthy" /><span>Station Healthy</span>
+            <img src={emptryStationImg} alt="Station Empty" /><span>Station Empty</span>
           </div>
         </div>
         <footer className="app-footer">

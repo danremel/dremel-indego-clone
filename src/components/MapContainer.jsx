@@ -29,7 +29,7 @@ var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 // }
 
 export class SearchBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             place: null,
@@ -104,7 +104,7 @@ export class SearchBar extends Component {
                         <input
                             style={inputStyles}
                             type='submit'
-                            value='Go' > 
+                            value='Go' >
                         </input>
                     </form>
                 </div>
