@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import axios from 'axios';
 
 // Station status marker icons
 import station100 from '../images/marker-100@2x.png';
@@ -14,7 +15,7 @@ import station0 from '../images/marker-0@2x.png';
 const indegoJson = require('../data/indego.json');
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 // var mapSettings = {};
-// mapSettings['imagePath'] = './images/';
+// mapSettings['imagePath'] = '../images/';
 
 // mapSettings.markers = {
 // 	available: {
@@ -27,6 +28,7 @@ var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 // 		100: mapSettings.imagePath + 'marker-100@2x.png',
 //     }
 // }
+// console.log(mapSettings.markers.available[0])
 
 export class SearchBar extends Component {
     constructor(props) {
@@ -121,10 +123,24 @@ export class MapContainer extends Component {
             displayingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
+            locations: []
         }
-
+        
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
+    }
+    
+    componentDidMount() {
+    var _this = this;
+    axios.get("https://www.rideindego.com/stations/json/")
+        .then(function(response) {
+            const locations = response.data.features;
+            _this.setState({ locations })
+            console.log(locations);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
     }
 
     onMarkerClick = function (props, marker, e) {
@@ -178,21 +194,24 @@ export class MapContainer extends Component {
     //     var icon;
 
     //     var markers = mapSettings.markers;
+    //     var currentIcon = this.marker.getIcon();
 
     //     icon = markers.available[roundedPercent];
+    //     console.log(icon);
 
 
-    // if( icon != currentIcon ) {
+    // if( icon !== currentIcon ) {
     //     this.marker.setIcon({
     //         url: icon,
     //     });
     // };
     // };
 
+    
 
     render() {
 
-        const stationMarkers = indegoJson.features.map((entry) =>
+        const stationMarkers = this.state.locations.map((entry) =>
             <Marker
                 onClick={this.onMarkerClick}
                 name={entry.properties.name}
