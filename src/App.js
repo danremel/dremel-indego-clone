@@ -7,7 +7,7 @@ import './App.css';
 import ExploreLink from './components/ExploreLink';
 import MapContainer from './components/MapContainer';
 import MapTitle from './components/MapTitle';
-
+import Weather from './components/Weather';
 
 class App extends Component {
   render() {
@@ -19,6 +19,7 @@ class App extends Component {
         <div className="app-body">
           <MapTitle />
           <ExploreLink />
+          <Weather />
           <div className="map-container">
             <MapContainer containerStyles={{ width: '50%' }} />
           </div>
