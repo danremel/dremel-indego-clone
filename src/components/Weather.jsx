@@ -13,7 +13,7 @@ class Weather extends Component {
 
     componentWillMount() {
         var _this = this;
-        axios.get("http://api.openweathermap.org/data/2.5/weather?id=4560349&units=imperial&APPID=93efc44bf2f6eb3308306f24dfd24128")
+        axios.get("https://api.openweathermap.org/data/2.5/weather?id=4560349&units=imperial&APPID=93efc44bf2f6eb3308306f24dfd24128")
         .then(function(response) {
             _this.setState({ 
                 weather: response.data,
