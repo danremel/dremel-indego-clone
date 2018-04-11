@@ -95,3 +95,12 @@
   color: #16216a;
   border-bottom: 5px solid #0082cb;
 }
+
+.weatherBlock {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  margin: 2% 0;
+  width: 97.5%;
+  background: linear-gradient(135deg, #2276aa 0%,#2989d8 13%,#accee5 100%);
+}

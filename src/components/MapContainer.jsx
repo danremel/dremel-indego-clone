@@ -5,15 +5,17 @@ import axios from 'axios';
 
 // Station status marker icons
 import station100 from '../images/marker-100@2x.png';
-import station80 from '../images/marker-80@2x.png';
-import station60 from '../images/marker-60@2x.png';
-import station50 from '../images/marker-50@2x.png';
-import station40 from '../images/marker-40@2x.png';
-import station20 from '../images/marker-20@2x.png';
-import station0 from '../images/marker-0@2x.png';
+// import station80 from '../images/marker-80@2x.png';
+// import station60 from '../images/marker-60@2x.png';
+// import station50 from '../images/marker-50@2x.png';
+// import station40 from '../images/marker-40@2x.png';
+// import station20 from '../images/marker-20@2x.png';
+// import station0 from '../images/marker-0@2x.png';
 
-const indegoJson = require('../data/indego.json');
 var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
+
+// #TODO: Conditionally render different icons for map markers
+//      dependent on percentage of available bikes
 // var mapSettings = {};
 // mapSettings['imagePath'] = '../images/';
 
@@ -48,7 +50,7 @@ export class SearchBar extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { google, map } = this.props;
+        const { map } = this.props;
         if (map !== prevProps.map) {
             this.renderAutoComplete();
         }
@@ -136,7 +138,6 @@ export class MapContainer extends Component {
         .then(function(response) {
             const locations = response.data.features;
             _this.setState({ locations })
-            console.log(locations);
         })
         .catch(function(error) {
             console.log(error);

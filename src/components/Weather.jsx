@@ -5,31 +5,33 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            weather: []
+            weather: [],
+            temp: [],
+            description: []
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var _this = this;
-        axios.get("http://api.openweathermap.org/data/2.5/weather?id=4560349&APPID=93efc44bf2f6eb3308306f24dfd24128")
+        axios.get("http://api.openweathermap.org/data/2.5/weather?id=4560349&units=imperial&APPID=93efc44bf2f6eb3308306f24dfd24128")
         .then(function(response) {
-            const weather = response.data.weather[0];
-            _this.setState({ weather })
-            console.log(response.data);
+            _this.setState({ 
+                weather: response.data,
+                temp: response.data.main.temp,
+                description: response.data.weather[0].description    
+            });
         })
         .catch(function(error) {
             console.log(error);
         });
     }
-
+    
     render() {
-        // var currentWeather = this.state.weather.map((entry) =>
-        //     <p>{entry.weather[0].main}</p>
-        // );
         return (
-            <div>
-                <h3>Today's weather:</h3>
-                <p>{this.state.weather.main}</p>
+            <div className="weatherBlock">
+                <h3>Weather in {this.state.weather.name}:</h3>
+                <h3>{this.state.temp}&deg;F</h3>
+                <h3>{this.state.description}</h3>
             </div>
         );
     }
