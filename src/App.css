@@ -97,39 +97,25 @@
 }
 
 .weatherBlock {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin: 2% 0;
-  width: 97.5%;
-  background-color: #16216a;
-  color: #ffffff;
+  text-align: center;
+  padding: 10px;
 }
 
 .weatherInfo {
-  padding: 1em;
+  padding: .5em 0;
+  background-color: #16216a;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 490px) {
   .app-header {
     background-color: #16216a;
-    height: 50px;
+    height: 70px;
     padding: 0 0 15px;
     border-bottom: 5px solid #94d60a;
     text-align: center;
   }
   .indego-logo {
-    height: 30px;
-    padding: 1.1em;
-  }
-  
-  .weatherBlock {
-    display: flex;
-    flex-direction: column;
-  }
-  .weatherInfo {
-    padding: 0;
-    text-align: center;
+    height: 45px;
   }
 }

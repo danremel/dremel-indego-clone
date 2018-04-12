@@ -29,8 +29,8 @@ class Weather extends Component {
     render() {
         return (
             <div className="weatherBlock">
-                <h3>Current Weather:</h3>
                 <div className="weatherInfo">
+                    <h3>Current Weather:</h3>
                     <h3>{this.state.temp}&deg;F</h3>
                     <h3>{this.state.description}</h3>
                 </div>
