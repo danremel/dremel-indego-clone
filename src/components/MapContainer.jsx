@@ -89,8 +89,8 @@ export class SearchBar extends Component {
     render() {
         const formContainer = {
             position: 'absolute',
-            top: '15px',
-            left: '110px'
+            top: '10px',
+            left: '127px'
         }
         const inputStyles = {
             height: '30px',
