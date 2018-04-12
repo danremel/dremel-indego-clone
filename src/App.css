@@ -107,6 +107,11 @@
   color: #ffffff;
 }
 
+weatherInfo h4, p {
+  margin: 0;
+  padding: 5px 0;
+}
+
 @media screen and (max-width: 490px) {
   .app-header {
     background-color: #16216a;
@@ -115,6 +120,7 @@
     border-bottom: 5px solid #94d60a;
     text-align: center;
   }
+
   .indego-logo {
     height: 45px;
   }
