@@ -131,6 +131,55 @@ export class MapContainer extends Component {
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
     }
+
+    determineIcon = function() {
+        //     const json = indegoJson.features.properties;
+        //     const bikes = json.bikesAvailable;
+        //     const docks = json.docksAvailable;
+    
+        const bikes = this.state.locations.properties.bikesAvailable;
+        const docks = this.state.locations.properties.docksAvailable;
+    
+        var kioskPercentFull = bikes / (bikes + docks);
+        var roundedPercent;
+
+        switch(true) {
+        case kioskPercentFull === 0:
+            roundedPercent = 0;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case (kioskPercentFull <= 0.2):
+            roundedPercent = 20;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case (kioskPercentFull === 0.4):
+            roundedPercent = 40;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case (kioskPercentFull <= 0.5):
+            roundedPercent = 50;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case (kioskPercentFull <= 0.6):
+            roundedPercent = 60;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case kioskPercentFull <= 0.8 :
+            roundedPercent = 80;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        case kioskPercentFull <= 1 :
+            roundedPercent = 100;
+            console.log("roundedPercent = " + roundedPercent);
+            break;
+        default:
+            console.log("Default Case - no other case was met.");
+            break;
+        }
+
+        console.log(kioskPercentFull);
+        console.log(roundedPercent);
+    }
     
     componentDidMount() {
     var _this = this;
@@ -142,6 +191,7 @@ export class MapContainer extends Component {
         .catch(function(error) {
             console.log(error);
         });
+    // this.determineIcon();
     }
 
     onMarkerClick = function (props, marker, e) {
@@ -161,52 +211,21 @@ export class MapContainer extends Component {
         };
     };
 
-    // determineIcon = function(props) {
-    //     const json = indegoJson.features.properties;
-    //     const bikes = json.bikesAvailable;
-    //     const docks = json.docksAvailable;
+        //     var icon;
 
-    //     var kioskPercentFull = bikes / (bikes + docks);
-    //     var roundedPercent;
-    //     if( kioskPercentFull === 0 ) {
-    //         roundedPercent = 0;
-    //     } else if( kioskPercentFull <= .2 ) {
-    //         if( bikes > 2 ) {
-    //             roundedPercent = 40;
-    //         } else {
-    //             roundedPercent = 20;
-    //         }
-    //     } else if( kioskPercentFull <= .40 ) {
-    //         roundedPercent = 40;
-    //     } else if( kioskPercentFull < .60 ) {
-    //         roundedPercent = 50;
-    //     }  else if( kioskPercentFull < .8 ) {
-    //         roundedPercent = 60;
-    //     } else if( kioskPercentFull < 1 ) {
-    //         if( docks > 2 ){
-    //             roundedPercent = 60;
-    //         } else {
-    //             roundedPercent = 80;
-    //         }
-    //     } else if( kioskPercentFull === 1 ) {
-    //         roundedPercent = 100;
-    //     }
+        //     var markers = mapSettings.markers;
+        //     var currentIcon = this.marker.getIcon();
 
-    //     var icon;
-
-    //     var markers = mapSettings.markers;
-    //     var currentIcon = this.marker.getIcon();
-
-    //     icon = markers.available[roundedPercent];
-    //     console.log(icon);
+        //     icon = markers.available[roundedPercent];
+        //     console.log(icon);
 
 
-    // if( icon !== currentIcon ) {
-    //     this.marker.setIcon({
-    //         url: icon,
-    //     });
-    // };
-    // };
+        // if( icon !== currentIcon ) {
+        //     this.marker.setIcon({
+        //         url: icon,
+        //     });
+        // };
+        // };
 
     
 
@@ -220,10 +239,10 @@ export class MapContainer extends Component {
                 position={{ lat: entry.properties.latitude, lng: entry.properties.longitude }}
                 bikesAvailable={entry.properties.bikesAvailable}
                 docksAvailable={entry.properties.docksAvailable}
-                icon={station100}
+                icon={this.determineIcon}
             />
         );
-
+        // this.determineIcon();
 
         return (
 
