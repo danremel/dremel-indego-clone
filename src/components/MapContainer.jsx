@@ -239,7 +239,7 @@ export class MapContainer extends Component {
                 position={{ lat: entry.properties.latitude, lng: entry.properties.longitude }}
                 bikesAvailable={entry.properties.bikesAvailable}
                 docksAvailable={entry.properties.docksAvailable}
-                icon={this.determineIcon}
+                icon={station100}
             />
         );
         // this.determineIcon();
