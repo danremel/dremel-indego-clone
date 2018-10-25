@@ -63,6 +63,7 @@
 .map-container {
   height: 100vh;
   width: 80vw;
+  padding-bottom: 10px;
 }
 
 .map-legend {
