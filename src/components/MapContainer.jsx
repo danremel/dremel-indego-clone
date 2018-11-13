@@ -70,7 +70,7 @@ export class SearchBar extends Component {
         const formContainer = {
             position: 'absolute',
             top: '10px',
-            left: '127px'
+            left: '200px'
         }
         const inputStyles = {
             height: '30px',
