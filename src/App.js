@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './images/Indego_Logo.png';
-// import fullStationImg from './images/marker-100@2x.png';
-// import healthyStationImg from './images/marker-50@2x.png';
-// import emptryStationImg from './images/marker-0@2x.png';
+import fullStationImg from './images/marker-100@2x.png';
+import healthyStationImg from './images/marker-50@2x.png';
+import emptryStationImg from './images/marker-0@2x.png';
 import './App.css';
 import ExploreLink from './components/ExploreLink';
 import MapContainer from './components/MapContainer';
@@ -12,7 +12,6 @@ require('dotenv').config();
 
 class App extends Component {
   render() {
-    console.log(process.env.token);
     return (
       <div className="app">
         <header className="app-header">
@@ -25,11 +24,11 @@ class App extends Component {
           <div className="map-container">
             <MapContainer containerStyles={{ width: '50%' }} />
           </div>
-          {/* <div className="map-legend">
+          <div className="map-legend">
             <img src={fullStationImg} alt="Station Full" /><span>Station Full</span>
             <img src={healthyStationImg} alt="Station Healthy" /><span>Station Healthy</span>
             <img src={emptryStationImg} alt="Station Empty" /><span>Station Empty</span>
-          </div> */}
+          </div>
         </div>
         <footer className="app-footer">
           <p>&copy; Daniel Remel 2018</p>

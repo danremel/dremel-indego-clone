@@ -5,31 +5,12 @@ import axios from 'axios';
 
 // Station status marker icons
 import station100 from '../images/marker-100@2x.png';
-// import station80 from '../images/marker-80@2x.png';
-// import station60 from '../images/marker-60@2x.png';
-// import station50 from '../images/marker-50@2x.png';
-// import station40 from '../images/marker-40@2x.png';
-// import station20 from '../images/marker-20@2x.png';
-// import station0 from '../images/marker-0@2x.png';
-
-
-// #TODO: Conditionally render different icons for map markers
-//      dependent on percentage of available bikes
-// var mapSettings = {};
-// mapSettings['imagePath'] = '../images/';
-
-// mapSettings.markers = {
-// 	available: {
-// 		0: mapSettings.imagePath + 'marker-0@2x.png',
-// 		20: mapSettings.imagePath + 'marker-20@2x.png',
-// 		40: mapSettings.imagePath + 'marker-40@2x.png',
-// 		50: mapSettings.imagePath + 'marker-50@2x.png',
-// 		60: mapSettings.imagePath + 'marker-60@2x.png',
-// 		80: mapSettings.imagePath + 'marker-80@2x.png',
-// 		100: mapSettings.imagePath + 'marker-100@2x.png',
-//     }
-// }
-// console.log(mapSettings.markers.available[0])
+import station80 from '../images/marker-80@2x.png';
+import station60 from '../images/marker-60@2x.png';
+import station50 from '../images/marker-50@2x.png';
+import station40 from '../images/marker-40@2x.png';
+import station20 from '../images/marker-20@2x.png';
+import station0 from '../images/marker-0@2x.png';
 
 export class SearchBar extends Component {
     constructor(props) {
@@ -39,52 +20,52 @@ export class SearchBar extends Component {
             position: null
         }
     }
-
+    
     onSubmit = function (e) {
         e.preventDefault();
     }
-
+    
     componentDidMount() {
         this.renderAutoComplete();
     }
-
+    
     componentDidUpdate(prevProps) {
         const { map } = this.props;
         if (map !== prevProps.map) {
             this.renderAutoComplete();
         }
     }
-
+    
     renderAutoComplete = function () {
         const { google, map } = this.props;
-
+        
         if (!google || !map) return;
-
+        
         const aref = this.refs.autocomplete;
         const node = ReactDOM.findDOMNode(aref);
         var autocomplete = new google.maps.places.Autocomplete(node);
         autocomplete.bindTo('bounds', map);
-
+        
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
             if (!place.geometry) {
                 return;
             }
-
+            
             if (place.geometry.viewport) {
                 map.fitBounds(place.geometry.viewport);
             } else {
                 map.setCenter(place.geometry.location);
                 map.setZoom(17);
             }
-
+            
             this.setState({
                 place: place,
                 position: place.geometry.location
             })
         })
     }
-
+    
     render() {
         const formContainer = {
             position: 'absolute',
@@ -130,68 +111,71 @@ export class MapContainer extends Component {
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
     }
+    
+    determineIcon = function(bikes, docks) {
+        var mapSettings = {};
+        
+        mapSettings.markers = {
+            available: {
+                0: station0,
+                20: station20,
+                40: station40,
+                50: station50,
+                60: station60,
+                80: station80,
+                100: station100,
+            }
+        }
 
-    determineIcon = function() {
-        //     const json = indegoJson.features.properties;
-        //     const bikes = json.bikesAvailable;
-        //     const docks = json.docksAvailable;
-    
-        const bikes = this.state.locations.properties.bikesAvailable;
-        const docks = this.state.locations.properties.docksAvailable;
-    
         var kioskPercentFull = bikes / (bikes + docks);
         var roundedPercent;
 
-        switch(true) {
-        case kioskPercentFull === 0:
+        if (kioskPercentFull === 0) {
             roundedPercent = 0;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case (kioskPercentFull <= 0.2):
+            return station0;
+        } else if (kioskPercentFull <= 0.2) {
             roundedPercent = 20;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case (kioskPercentFull === 0.4):
+            return station20;
+        } else if (kioskPercentFull <= 0.4) {
             roundedPercent = 40;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case (kioskPercentFull <= 0.5):
+            return station40;
+        } else if (kioskPercentFull <= 0.5) {
             roundedPercent = 50;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case (kioskPercentFull <= 0.6):
+            return station50;
+        } else if (kioskPercentFull <= 0.6) {
             roundedPercent = 60;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case kioskPercentFull <= 0.8 :
+            return station60;
+        } else if (kioskPercentFull <= 0.8) {
             roundedPercent = 80;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        case kioskPercentFull <= 1 :
+            return station80;
+        } else if (kioskPercentFull <= 1) {
             roundedPercent = 100;
             console.log("roundedPercent = " + roundedPercent);
-            break;
-        default:
+            return station100;
+        }
+        else {
             console.log("Default Case - no other case was met.");
-            break;
         }
 
-        console.log(kioskPercentFull);
-        console.log(roundedPercent);
     }
     
     componentDidMount() {
-    console.log(process.env.REACT_APP_TOKEN);
     var _this = this;
     axios.get("https://www.rideindego.com/stations/json/")
         .then(function(response) {
+            console.log("Successfully hit indego api");
             const locations = response.data.features;
             _this.setState({ locations })
         })
         .catch(function(error) {
             console.log(error);
         });
-    // this.determineIcon();
     }
 
     onMarkerClick = function (props, marker, e) {
@@ -209,28 +193,9 @@ export class MapContainer extends Component {
                 activeMarker: null
             });
         };
-    };
-
-        //     var icon;
-
-        //     var markers = mapSettings.markers;
-        //     var currentIcon = this.marker.getIcon();
-
-        //     icon = markers.available[roundedPercent];
-        //     console.log(icon);
-
-
-        // if( icon !== currentIcon ) {
-        //     this.marker.setIcon({
-        //         url: icon,
-        //     });
-        // };
-        // };
-
-    
+    };  
 
     render() {
-
         const stationMarkers = this.state.locations.map((entry) =>
             <Marker
                 onClick={this.onMarkerClick}
@@ -239,10 +204,9 @@ export class MapContainer extends Component {
                 position={{ lat: entry.properties.latitude, lng: entry.properties.longitude }}
                 bikesAvailable={entry.properties.bikesAvailable}
                 docksAvailable={entry.properties.docksAvailable}
-                icon={station100}
+                icon={this.determineIcon(entry.properties.bikesAvailable, entry.properties.docksAvailable)}
             />
         );
-        // this.determineIcon();
 
         return (
 
