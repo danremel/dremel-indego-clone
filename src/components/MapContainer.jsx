@@ -12,7 +12,6 @@ import station100 from '../images/marker-100@2x.png';
 // import station20 from '../images/marker-20@2x.png';
 // import station0 from '../images/marker-0@2x.png';
 
-var gApi = "AIzaSyDhlrxKxKfsu5yR0rODClez8EYLYkN45_M"
 
 // #TODO: Conditionally render different icons for map markers
 //      dependent on percentage of available bikes
@@ -182,6 +181,7 @@ export class MapContainer extends Component {
     }
     
     componentDidMount() {
+    console.log(process.env.REACT_APP_TOKEN);
     var _this = this;
     axios.get("https://www.rideindego.com/stations/json/")
         .then(function(response) {
@@ -271,5 +271,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: gApi
+    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 })(MapContainer)

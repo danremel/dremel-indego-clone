@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import logo from './images/Indego_Logo.png';
-import fullStationImg from './images/marker-100@2x.png';
-import healthyStationImg from './images/marker-50@2x.png';
-import emptryStationImg from './images/marker-0@2x.png';
+// import fullStationImg from './images/marker-100@2x.png';
+// import healthyStationImg from './images/marker-50@2x.png';
+// import emptryStationImg from './images/marker-0@2x.png';
 import './App.css';
 import ExploreLink from './components/ExploreLink';
 import MapContainer from './components/MapContainer';
 import MapTitle from './components/MapTitle';
 import Weather from './components/Weather';
+require('dotenv').config();
 
 class App extends Component {
   render() {
+    console.log(process.env.token);
     return (
       <div className="app">
         <header className="app-header">
