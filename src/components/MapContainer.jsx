@@ -128,39 +128,23 @@ export class MapContainer extends Component {
         }
 
         var kioskPercentFull = bikes / (bikes + docks);
-        var roundedPercent;
 
         if (kioskPercentFull === 0) {
-            roundedPercent = 0;
-            console.log("roundedPercent = " + roundedPercent);
             return station0;
         } else if (kioskPercentFull <= 0.2) {
-            roundedPercent = 20;
-            console.log("roundedPercent = " + roundedPercent);
             return station20;
         } else if (kioskPercentFull <= 0.4) {
-            roundedPercent = 40;
-            console.log("roundedPercent = " + roundedPercent);
             return station40;
         } else if (kioskPercentFull <= 0.5) {
-            roundedPercent = 50;
-            console.log("roundedPercent = " + roundedPercent);
             return station50;
         } else if (kioskPercentFull <= 0.6) {
-            roundedPercent = 60;
-            console.log("roundedPercent = " + roundedPercent);
             return station60;
         } else if (kioskPercentFull <= 0.8) {
-            roundedPercent = 80;
-            console.log("roundedPercent = " + roundedPercent);
             return station80;
         } else if (kioskPercentFull <= 1) {
-            roundedPercent = 100;
-            console.log("roundedPercent = " + roundedPercent);
             return station100;
         }
         else {
-            console.log("Default Case - no other case was met.");
         }
 
     }
@@ -169,7 +153,6 @@ export class MapContainer extends Component {
     var _this = this;
     axios.get("https://www.rideindego.com/stations/json/")
         .then(function(response) {
-            console.log("Successfully hit indego api");
             const locations = response.data.features;
             _this.setState({ locations })
         })
