@@ -144,9 +144,6 @@ export class MapContainer extends Component {
         } else if (kioskPercentFull <= 1) {
             return station100;
         }
-        else {
-        }
-
     }
     
     componentDidMount() {
