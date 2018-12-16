@@ -15,6 +15,10 @@
   height: 45px;
 }
 
+.app-footer a {
+  color: #ffffff;
+}
+
 .app-header {
   background-color: #16216a;
   height: 115px;

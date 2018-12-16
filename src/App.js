@@ -31,7 +31,7 @@ class App extends Component {
           </div>
         </div>
         <footer className="app-footer">
-          <p>&copy; Daniel Remel 2018</p>
+          <p>&copy; Daniel Remel 2018 | | <a href="https://github.com/danremel">View GitHub</a></p>
         </footer>
       </div>
     );
