@@ -1,4 +1,4 @@
-/* 
+/*
   Indego Brand Colors:
   Dark Blue: #16216a
   Light Blue: #0082cb
@@ -96,14 +96,13 @@
   /* font-size: 48px; */
   padding: 0 0 9px;
   margin-bottom: 32px;
-  width: 96%;
   color: #16216a;
   border-bottom: 5px solid #0082cb;
 }
 
 .weatherBlock {
   text-align: center;
-  padding: 10px;
+  padding-bottom: 10px;
 }
 
 .weatherInfo {

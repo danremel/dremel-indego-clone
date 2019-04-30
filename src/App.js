@@ -4,9 +4,8 @@ import fullStationImg from './images/marker-100@2x.png';
 import healthyStationImg from './images/marker-50@2x.png';
 import emptryStationImg from './images/marker-0@2x.png';
 import './App.css';
-import ExploreLink from './components/ExploreLink';
+import SubHeader from './components/SubHeader';
 import MapContainer from './components/MapContainer';
-import MapTitle from './components/MapTitle';
 import Weather from './components/Weather';
 require('dotenv').config();
 
@@ -18,8 +17,7 @@ class App extends Component {
           <img src={logo} className="indego-logo" alt="logo" />
         </header>
         <div className="app-body">
-          <MapTitle />
-          <ExploreLink />
+          <SubHeader />
           <Weather />
           <div className="map-container">
             <MapContainer containerStyles={{ width: '50%' }} />

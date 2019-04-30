@@ -20,52 +20,52 @@ export class SearchBar extends Component {
             position: null
         }
     }
-    
+
     onSubmit = function (e) {
         e.preventDefault();
     }
-    
+
     componentDidMount() {
         this.renderAutoComplete();
     }
-    
+
     componentDidUpdate(prevProps) {
         const { map } = this.props;
         if (map !== prevProps.map) {
             this.renderAutoComplete();
         }
     }
-    
+
     renderAutoComplete = function () {
         const { google, map } = this.props;
-        
+
         if (!google || !map) return;
-        
+
         const aref = this.refs.autocomplete;
         const node = ReactDOM.findDOMNode(aref);
         var autocomplete = new google.maps.places.Autocomplete(node);
         autocomplete.bindTo('bounds', map);
-        
+
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
             if (!place.geometry) {
                 return;
             }
-            
+
             if (place.geometry.viewport) {
                 map.fitBounds(place.geometry.viewport);
             } else {
                 map.setCenter(place.geometry.location);
                 map.setZoom(17);
             }
-            
+
             this.setState({
                 place: place,
                 position: place.geometry.location
             })
         })
     }
-    
+
     render() {
         const formContainer = {
             position: 'absolute',
@@ -107,14 +107,14 @@ export class MapContainer extends Component {
             selectedPlace: {},
             locations: []
         }
-        
+
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClicked = this.onMapClicked.bind(this);
     }
-    
+
     determineIcon = function(bikes, docks) {
         var mapSettings = {};
-        
+
         mapSettings.markers = {
             available: {
                 0: station0,
@@ -145,7 +145,7 @@ export class MapContainer extends Component {
             return station100;
         }
     }
-    
+
     componentDidMount() {
     var _this = this;
     axios.get("https://www.rideindego.com/stations/json/")
@@ -173,7 +173,7 @@ export class MapContainer extends Component {
                 activeMarker: null
             });
         };
-    };  
+    };
 
     render() {
         const stationMarkers = this.state.locations.map((entry) =>
@@ -190,7 +190,7 @@ export class MapContainer extends Component {
 
         return (
 
-            <Map style={{ width: '90vw', overflow: 'hidden' }} google={this.props.google} onClick={this.onMapClicked} initialCenter={{ lat: 39.9526, lng: -75.1652 }}>
+            <Map style={{ width: '94vw', overflow: 'hidden' }} google={this.props.google} onClick={this.onMapClicked} initialCenter={{ lat: 39.9526, lng: -75.1652 }}>
                 <SearchBar />
                 {stationMarkers}
                 <InfoWindow
@@ -209,7 +209,7 @@ export class MapContainer extends Component {
                         </div>
                     </div>
                 </InfoWindow>
-            </Map>                
+            </Map>
         );
     }
 }
